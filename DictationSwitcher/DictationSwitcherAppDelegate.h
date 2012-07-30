@@ -10,7 +10,7 @@
 
 @interface DictationSwitcherAppDelegate : NSObject <NSApplicationDelegate> {
     IBOutlet NSMenu *statusMenu;
-    NSStatusItem *statusItem;
+    NSStatusItem *dictationSwitcherMenu;
     id previousSender;
     NSString *DictationIMLocaleIdentifier;
     NSWindow *settingsWindow;

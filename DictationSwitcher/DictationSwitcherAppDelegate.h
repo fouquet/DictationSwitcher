@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 @interface DictationSwitcherAppDelegate : NSObject <NSApplicationDelegate> {
-    IBOutlet NSMenu *statusMenu;
-    NSStatusItem *dictationSwitcherMenu;
+    IBOutlet NSMenu *dictationSwitcherMenu;
+    NSStatusItem *dictationSwitcherItem;
     id previousSender;
     NSString *DictationIMLocaleIdentifier;
     NSWindow *settingsWindow;
@@ -28,6 +28,6 @@
 - (IBAction)goToPreferencesFromTermsNotAgreedToWindow:(id)sender;
 - (IBAction)justQuit:(id)sender;
 
-@property (strong) IBOutlet NSMenu *statusMenu;
+@property (strong) IBOutlet NSMenu *dictationSwitcherMenu;
 
 @end

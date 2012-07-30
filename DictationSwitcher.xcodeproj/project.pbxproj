@@ -47,8 +47,8 @@
 		116E870A15C44B090090D303 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		116E870C15C44B090090D303 /* DictationSwitcher-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DictationSwitcher-Prefix.pch"; sourceTree = "<group>"; };
 		116E870E15C44B090090D303 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		116E871015C44B090090D303 /* DictationSwitcherAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DictationSwitcherAppDelegate.h; sourceTree = "<group>"; };
-		116E871115C44B090090D303 /* DictationSwitcherAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DictationSwitcherAppDelegate.m; sourceTree = "<group>"; };
+		116E871015C44B090090D303 /* DictationSwitcherAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DictationSwitcherAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		116E871115C44B090090D303 /* DictationSwitcherAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DictationSwitcherAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		116E871415C44B090090D303 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		116E871D15C451750090D303 /* statusicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusicon@2x.png"; path = "DictationSwitcher/statusicon@2x.png"; sourceTree = "<group>"; };
 		116E871E15C451750090D303 /* statusicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusicon.png; path = DictationSwitcher/statusicon.png; sourceTree = "<group>"; };

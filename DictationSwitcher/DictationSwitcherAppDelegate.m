@@ -9,7 +9,7 @@
 #import "DictationSwitcherAppDelegate.h"
 
 @implementation DictationSwitcherAppDelegate
-@synthesize statusMenu;
+@synthesize dictationSwitcherMenu;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -39,18 +39,18 @@
     
     // Put the status item:
     
-    dictationSwitcherMenu = [[NSStatusBar systemStatusBar] statusItemWithLength:22];
-    [dictationSwitcherMenu setMenu:statusMenu];
+    dictationSwitcherItem = [[NSStatusBar systemStatusBar] statusItemWithLength:22];
+    [dictationSwitcherItem setMenu:dictationSwitcherMenu];
     if (!dictationDisabled) {
-        [dictationSwitcherMenu setImage:[[NSBundle mainBundle] imageForResource:@"statusicon"]];
-        [dictationSwitcherMenu setAlternateImage:[[NSBundle mainBundle] imageForResource:@"statusicon-alt"]];
+        [dictationSwitcherItem setImage:[[NSBundle mainBundle] imageForResource:@"statusicon"]];
+        [dictationSwitcherItem setAlternateImage:[[NSBundle mainBundle] imageForResource:@"statusicon-alt"]];
     } else {
-        [dictationSwitcherMenu setImage:[[NSBundle mainBundle] imageForResource:@"statusicon-off"]];
-        [dictationSwitcherMenu setAlternateImage:[[NSBundle mainBundle] imageForResource:@"statusicon-off-alt"]];
+        [dictationSwitcherItem setImage:[[NSBundle mainBundle] imageForResource:@"statusicon-off"]];
+        [dictationSwitcherItem setAlternateImage:[[NSBundle mainBundle] imageForResource:@"statusicon-off-alt"]];
     }
 
-    [dictationSwitcherMenu setHighlightMode:YES];
-    [dictationSwitcherMenu setToolTip:@"DictationSwitcher"];
+    [dictationSwitcherItem setHighlightMode:YES];
+    [dictationSwitcherItem setToolTip:@"DictationSwitcher"];
     
     // Apple's Information regarding Dictation agreed to?
     
@@ -58,7 +58,7 @@
     
     if (![defaults boolForKey:@"DictationIMIntroMessagePresented"]) {
         [self openTermsNotAgreedToWindow];
-        [dictationSwitcherMenu setMenu:nil];
+        [dictationSwitcherItem setMenu:nil];
     }
     
     // Grab the current dictation language settings:
@@ -75,28 +75,28 @@
     // Check the appropriate language:
     
         if ([settings isEqualToString:@"en-AU"]) {
-            previousSender=[statusMenu itemWithTag:1];
-            [[statusMenu itemWithTag:1] setState:NSOnState];
+            previousSender=[dictationSwitcherMenu itemWithTag:1];
+            [[dictationSwitcherMenu itemWithTag:1] setState:NSOnState];
         }
         if ([settings isEqualToString:@"en-GB"]) {
-            previousSender=[statusMenu itemWithTag:2];
-            [[statusMenu itemWithTag:2] setState:NSOnState];
+            previousSender=[dictationSwitcherMenu itemWithTag:2];
+            [[dictationSwitcherMenu itemWithTag:2] setState:NSOnState];
         }
         if ([settings isEqualToString:@"en-US"]) {
-            previousSender=[statusMenu itemWithTag:3];
-            [[statusMenu itemWithTag:3] setState:NSOnState];
+            previousSender=[dictationSwitcherMenu itemWithTag:3];
+            [[dictationSwitcherMenu itemWithTag:3] setState:NSOnState];
         }
         if ([settings isEqualToString:@"fr-FR"]) {
-            previousSender=[statusMenu itemWithTag:4];
-            [[statusMenu itemWithTag:4] setState:NSOnState];
+            previousSender=[dictationSwitcherMenu itemWithTag:4];
+            [[dictationSwitcherMenu itemWithTag:4] setState:NSOnState];
         }
         if ([settings isEqualToString:@"de-DE"]) {
-            previousSender=[statusMenu itemWithTag:5];
-            [[statusMenu itemWithTag:5] setState:NSOnState];
+            previousSender=[dictationSwitcherMenu itemWithTag:5];
+            [[dictationSwitcherMenu itemWithTag:5] setState:NSOnState];
         }
         if ([settings isEqualToString:@"ja-JP"]) {
-            previousSender=[statusMenu itemWithTag:6];
-            [[statusMenu itemWithTag:6] setState:NSOnState];
+            previousSender=[dictationSwitcherMenu itemWithTag:6];
+            [[dictationSwitcherMenu itemWithTag:6] setState:NSOnState];
         }
 }
 
@@ -178,8 +178,8 @@
     
         [sender setTitle:NSLocalizedString(@"Turn dictation on", nil)],
     
-        [dictationSwitcherMenu setImage:[[NSBundle mainBundle] imageForResource:@"statusicon-off"]];
-        [dictationSwitcherMenu setAlternateImage:[[NSBundle mainBundle] imageForResource:@"statusicon-off-alt"]];
+        [dictationSwitcherItem setImage:[[NSBundle mainBundle] imageForResource:@"statusicon-off"]];
+        [dictationSwitcherItem setAlternateImage:[[NSBundle mainBundle] imageForResource:@"statusicon-off-alt"]];
     
         [defaults setPersistentDomain:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:@"Dictation Enabled"]
                       forName:@"com.apple.assistant.support"];
@@ -188,8 +188,8 @@
 
         [sender setTitle:NSLocalizedString(@"Turn dictation off", nil)],
     
-        [dictationSwitcherMenu setImage:[[NSBundle mainBundle] imageForResource:@"statusicon"]];
-        [dictationSwitcherMenu setAlternateImage:[[NSBundle mainBundle] imageForResource:@"statusicon-alt"]];
+        [dictationSwitcherItem setImage:[[NSBundle mainBundle] imageForResource:@"statusicon"]];
+        [dictationSwitcherItem setAlternateImage:[[NSBundle mainBundle] imageForResource:@"statusicon-alt"]];
 
         [defaults setPersistentDomain:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"Dictation Enabled"]
                           forName:@"com.apple.assistant.support"];

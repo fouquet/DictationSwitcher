@@ -27,6 +27,7 @@
 - (IBAction)openAboutPanel:(id)sender;
 - (IBAction)goToPreferencesFromTermsNotAgreedToWindow:(id)sender;
 - (IBAction)justQuit:(id)sender;
+- (IBAction)openAtLogin:(id)sender;
 
 @property (strong) IBOutlet NSMenu *dictationSwitcherMenu;
 

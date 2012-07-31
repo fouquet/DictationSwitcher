@@ -22,6 +22,7 @@
                                                              [NSNumber numberWithBool:TRUE], @"fr-FR",
                                                              [NSNumber numberWithBool:TRUE], @"de-DE",
                                                              [NSNumber numberWithBool:TRUE], @"ja-JP",
+                                                             [NSNumber numberWithBool:FALSE], @"openAtLogin",
                                                              nil]];
     defaults = [[NSUserDefaults alloc] init];
     
@@ -60,6 +61,40 @@
         [self openTermsNotAgreedToWindow];
         [dictationSwitcherItem setMenu:nil];
     }
+    
+    // See if we're set as a login item
+    
+    // First, assume we are not
+    
+    [defaults setBool:FALSE forKey:@"openAtLogin"];
+    
+    NSString *appPath = [[NSBundle mainBundle] bundlePath];
+    CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:appPath];
+    
+    // Create a reference to the shared file list, search the list:
+    
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,
+                                                            kLSSharedFileListSessionLoginItems, NULL);
+    
+    if (loginItems) {
+        UInt32 seedValue;
+        NSArray  *loginItemsArray = (__bridge NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
+        for(int i = 0 ; i< [loginItemsArray count]; i++){
+            LSSharedFileListItemRef itemRef = (__bridge LSSharedFileListItemRef)[loginItemsArray
+                                                                                 objectAtIndex:i];
+            
+            if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &url, NULL) == noErr) {
+                NSString * urlPath = [(__bridge NSURL*)url path];
+                if ([urlPath compare:appPath] == NSOrderedSame){
+                    
+                    // We are!
+                    
+                    [defaults setBool:TRUE forKey:@"openAtLogin"];
+                }
+            }
+        }
+    }
+
     
     // Grab the current dictation language settings:
     
@@ -208,6 +243,62 @@
     }
 
 }
+
+-(IBAction)openAtLogin:(id)sender {
+    
+    if([sender state]==NSOnState) {
+        
+        // Grab the Application Bundle path:
+        
+        NSString * appPath = [[NSBundle mainBundle] bundlePath];
+        CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:appPath];
+        
+        // Create a reference to the shared file list and insert the item:
+        
+        LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,
+                                                                kLSSharedFileListSessionLoginItems, NULL);
+        if (loginItems) {
+            LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems,
+                                                                         kLSSharedFileListItemLast, NULL, NULL,
+                                                                         url, NULL, NULL);
+            if (item){
+                CFRelease(item);
+            }
+        }
+        
+        CFRelease(loginItems);
+        
+    } else {
+        
+        // Grab the Application Bundle path:
+        
+        NSString *appPath = [[NSBundle mainBundle] bundlePath];
+        CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:appPath];
+        
+        // Create a reference to the shared file list, search the list and remove the item:
+        
+        LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,
+                                                                kLSSharedFileListSessionLoginItems, NULL);
+        
+        if (loginItems) {
+            UInt32 seedValue;
+            NSArray  *loginItemsArray = (__bridge NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
+            for(int i = 0 ; i< [loginItemsArray count]; i++){
+                LSSharedFileListItemRef itemRef = (__bridge LSSharedFileListItemRef)[loginItemsArray
+                                                                                     objectAtIndex:i];
+                
+                if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &url, NULL) == noErr) {
+                    NSString * urlPath = [(__bridge NSURL*)url path];
+                    if ([urlPath compare:appPath] == NSOrderedSame){
+                        LSSharedFileListItemRemove(loginItems,itemRef);
+                    }
+                }
+            }
+        }
+
+    }
+}
+
 
 - (IBAction)gotToPreferences:(id)sender {
     [[NSWorkspace sharedWorkspace] openFile:@"/System/Library/PreferencePanes/Speech.prefPane"];

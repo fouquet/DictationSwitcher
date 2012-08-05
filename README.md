@@ -1,7 +1,7 @@
 DictationSwitcher
 =================
 
-An OS X menu bar utility that lets the user quickly switch dictation languages or turn the service off. Requires OS X 10.8 (Mountain Lion).
+A OS X menu bar utility that lets the user quickly switch dictation languages or turn the service off. Requires OS X 10.8 (Mountain Lion).
 
 ![DictationSwitcher](http://fouquet.me/images/dictationswitcher/dictationswitcher.jpg)
 

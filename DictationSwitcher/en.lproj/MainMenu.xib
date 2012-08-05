@@ -124,7 +124,7 @@
 						<int key="NSMnemonicLoc">2147483647</int>
 						<object class="NSCustomResource" key="NSImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">jp-JP</string>
+							<string key="NSResourceName">ja-JP</string>
 						</object>
 						<reference key="NSOnImage" ref="534026295"/>
 						<reference key="NSMixedImage" ref="953160310"/>
@@ -484,7 +484,7 @@
 						<object class="NSTextField" id="706882938">
 							<reference key="NSNextResponder" ref="867857594"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{-7, 33}, {148, 22}}</string>
+							<string key="NSFrame">{{9, 33}, {148, 22}}</string>
 							<reference key="NSSuperview" ref="867857594"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="31192784"/>
@@ -508,6 +508,7 @@
 							<string key="NSFrame">{{160, 35}, {285, 18}}</string>
 							<reference key="NSSuperview" ref="867857594"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="736677425">
@@ -531,7 +532,7 @@
 						<object class="NSTextField" id="881232519">
 							<reference key="NSNextResponder" ref="867857594"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{-18, 77}, {148, 22}}</string>
+							<string key="NSFrame">{{-18, 77}, {175, 22}}</string>
 							<reference key="NSSuperview" ref="867857594"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="317929343"/>
@@ -540,7 +541,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="815212299">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">Active icon:</string>
+								<string key="NSContents">Menubar Icon:</string>
 								<reference key="NSSupport" ref="574512941"/>
 								<string key="NSCellIdentifier">_NS:1535</string>
 								<reference key="NSControlView" ref="881232519"/>
@@ -561,7 +562,7 @@
 							<object class="NSButtonCell" key="NSCell" id="428618421">
 								<int key="NSCellFlags">-2080374784</int>
 								<int key="NSCellFlags2">0</int>
-								<string key="NSContents">Show icon of an active language in menu bar</string>
+								<string key="NSContents">Show icon of the active language</string>
 								<reference key="NSSupport" ref="574512941"/>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="317929343"/>
@@ -634,6 +635,7 @@
 							<string key="NSFrame">{{259, 13}, {207, 32}}</string>
 							<reference key="NSSuperview" ref="311769353"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="667298942">
@@ -1295,12 +1297,12 @@
 							<reference ref="51620945"/>
 							<reference ref="911194805"/>
 							<reference ref="45335305"/>
-							<reference ref="881232519"/>
-							<reference ref="317929343"/>
-							<reference ref="706882938"/>
 							<reference ref="31192784"/>
 							<reference ref="48175639"/>
 							<reference ref="2565657"/>
+							<reference ref="317929343"/>
+							<reference ref="881232519"/>
+							<reference ref="706882938"/>
 						</array>
 						<reference key="parent" ref="426389879"/>
 					</object>
@@ -1708,7 +1710,7 @@
 			<string key="en-GB">{16, 11}</string>
 			<string key="en-US">{16, 11}</string>
 			<string key="fr-FR">{16, 11}</string>
-			<string key="jp-JP">{16, 11}</string>
+			<string key="ja-JP">{16, 11}</string>
 		</dictionary>
 	</data>
 </archive>

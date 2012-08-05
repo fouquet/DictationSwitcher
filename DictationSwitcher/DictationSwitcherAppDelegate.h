@@ -12,7 +12,7 @@
     IBOutlet NSMenu *dictationSwitcherMenu;
     NSStatusItem *dictationSwitcherItem;
     id previousSender;
-    NSString *DictationIMLocaleIdentifier;
+    NSMutableString *DictationIMLocaleIdentifier;
     NSWindow *settingsWindow;
     BOOL dictationDisabled;
     NSMenuItem *dictationOnOff;
@@ -28,6 +28,7 @@
 - (IBAction)goToPreferencesFromTermsNotAgreedToWindow:(id)sender;
 - (IBAction)justQuit:(id)sender;
 - (IBAction)openAtLogin:(id)sender;
+- (IBAction)useDefaultStatusBarIcon:(id)sender;
 
 @property (strong) IBOutlet NSMenu *dictationSwitcherMenu;
 

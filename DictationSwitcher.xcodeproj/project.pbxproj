@@ -34,6 +34,8 @@
 		11F88B0915C688EC00EC051B /* DictationSwitcher.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 11F88B0815C688EC00EC051B /* DictationSwitcher.iconset */; };
 		75AC28F215CF0045004A67DD /* en-GB.png in Resources */ = {isa = PBXBuildFile; fileRef = 75AC28F015CF0045004A67DD /* en-GB.png */; };
 		75AC28F315CF0045004A67DD /* en-GB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75AC28F115CF0045004A67DD /* en-GB@2x.png */; };
+		8C9F17D215DF84B100ED04E6 /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9F17D115DF84B100ED04E6 /* DDHotKeyCenter.m */; };
+		8C9F17D515DF881C00ED04E6 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9F17D415DF881C00ED04E6 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +73,9 @@
 		11F88B0815C688EC00EC051B /* DictationSwitcher.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = DictationSwitcher.iconset; sourceTree = "<group>"; };
 		75AC28F015CF0045004A67DD /* en-GB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "en-GB.png"; path = "DictationSwitcher/en-GB.png"; sourceTree = "<group>"; };
 		75AC28F115CF0045004A67DD /* en-GB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "en-GB@2x.png"; path = "DictationSwitcher/en-GB@2x.png"; sourceTree = "<group>"; };
+		8C9F17D015DF84B100ED04E6 /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyCenter.h; sourceTree = "<group>"; };
+		8C9F17D115DF84B100ED04E6 /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyCenter.m; sourceTree = "<group>"; };
+		8C9F17D415DF881C00ED04E6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C9F17D515DF881C00ED04E6 /* Carbon.framework in Frameworks */,
 				116E86FF15C44B090090D303 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,6 +94,7 @@
 		116E86EF15C44B090090D303 = {
 			isa = PBXGroup;
 			children = (
+				8C9F17D415DF881C00ED04E6 /* Carbon.framework */,
 				11F88B0A15C6892700EC051B /* Resources */,
 				116E870415C44B090090D303 /* DictationSwitcher */,
 				116E86FD15C44B090090D303 /* Frameworks */,
@@ -125,6 +132,8 @@
 		116E870415C44B090090D303 /* DictationSwitcher */ = {
 			isa = PBXGroup;
 			children = (
+				8C9F17D015DF84B100ED04E6 /* DDHotKeyCenter.h */,
+				8C9F17D115DF84B100ED04E6 /* DDHotKeyCenter.m */,
 				116E871015C44B090090D303 /* DictationSwitcherAppDelegate.h */,
 				116E871115C44B090090D303 /* DictationSwitcherAppDelegate.m */,
 				116E871315C44B090090D303 /* MainMenu.xib */,
@@ -261,6 +270,7 @@
 			files = (
 				116E870B15C44B090090D303 /* main.m in Sources */,
 				116E871215C44B090090D303 /* DictationSwitcherAppDelegate.m in Sources */,
+				8C9F17D215DF84B100ED04E6 /* DDHotKeyCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

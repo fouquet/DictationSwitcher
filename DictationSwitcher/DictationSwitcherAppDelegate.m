@@ -7,6 +7,7 @@
 //
 
 #import "DictationSwitcherAppDelegate.h"
+#import "DDHotKeyCenter.h"
 
 @implementation DictationSwitcherAppDelegate
 @synthesize dictationSwitcherMenu;
@@ -87,6 +88,16 @@
             }
         }
     }
+
+    // Register hot key.
+    // Note: At the moment, this is hard-coded to the letter J with modifiers
+    // Command, Option, and Control.
+    DDHotKeyCenter *hotKeyCenter = [[DDHotKeyCenter alloc] init];
+    DDHotKeyTask task = ^(NSEvent *hkEvent) { [self hotKeyPressed:hkEvent]; };
+	int flags = (NSControlKeyMask | NSAlternateKeyMask | NSCommandKeyMask);
+    BOOL ok = [hotKeyCenter registerHotKeyWithKeyCode:38 modifierFlags:flags task:task];
+    if (!ok)
+        DLog(@"%s  Failed to register hot key.", __PRETTY_FUNCTION__);
 
     
     // Grab the current dictation language settings:

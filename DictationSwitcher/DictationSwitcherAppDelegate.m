@@ -90,14 +90,14 @@
     }
 
     // Register hot key.
-    // Note: At the moment, this is hard-coded to the letter J with modifiers
-    // Command, Option, and Control.
+    // Note: At the moment, this is hard-coded to the letter L with modifiers
+    // Command, and Control. 
     DDHotKeyCenter *hotKeyCenter = [[DDHotKeyCenter alloc] init];
     DDHotKeyTask task = ^(NSEvent *hkEvent) { [self hotKeyPressed:hkEvent]; };
-	int flags = (NSControlKeyMask | NSAlternateKeyMask | NSCommandKeyMask);
-    BOOL ok = [hotKeyCenter registerHotKeyWithKeyCode:38 modifierFlags:flags task:task];
+	int flags = (NSControlKeyMask | NSCommandKeyMask);//NSAlternateKeyMask | == Option
+    BOOL ok = [hotKeyCenter registerHotKeyWithKeyCode:37 modifierFlags:flags task:task];
     if (!ok)
-        DLog(@"%s  Failed to register hot key.", __PRETTY_FUNCTION__);
+        NSLog(@"%s  Failed to register hot key.", __PRETTY_FUNCTION__);
 
     
     // Grab the current dictation language settings:
@@ -164,7 +164,8 @@
 - (IBAction)switchLanguage:(id)sender {
     
     // Some language menu item was activated. Set the locale identifier accordingly:
-    
+    previousLanguage=currentLanguage;
+    currentLanguage=(int)[sender tag];
     switch ([sender tag]) {
         case 1:
             [DictationIMLocaleIdentifier setString:@"en-AU"];
@@ -221,8 +222,9 @@
     
     // Get the DictationIM process ID:
         
-    if ([NSRunningApplication runningApplicationsWithBundleIdentifier: @"com.apple.inputmethod.ironwood"]!=nil) {
-        int pid=[[[NSRunningApplication runningApplicationsWithBundleIdentifier: @"com.apple.inputmethod.ironwood"] objectAtIndex:0] processIdentifier];
+    NSArray* ironwoods=[NSRunningApplication runningApplicationsWithBundleIdentifier: @"com.apple.inputmethod.ironwood"];
+    if (ironwoods!=nil && [ironwoods count]>0) {
+        int pid=[[ironwoods objectAtIndex:0] processIdentifier];
         
         // Kill it with fire:
         [[NSTask launchedTaskWithLaunchPath:@"/bin/kill" arguments:[NSArray arrayWithObjects:@"-hup",[NSString stringWithFormat:@"%i",pid], nil]] waitUntilExit];
@@ -351,6 +353,30 @@
 
 - (IBAction)justQuit:(id)sender {
     [NSApp terminate:nil];
+}
+
+
+int currentLanguage=3;
+int previousLanguage=5;
+-(void)toggleLanguage{
+    @try {
+        [self getCurrentLanguageSettings];
+        previousLanguage=[previousSender tag];
+        currentLanguage=previousLanguage==3?5:3;// todo! preferences
+        NSControl* sender=[dictationSwitcherMenu itemWithTag:currentLanguage];
+        [self switchLanguage:sender];
+        //    [self switchLanguage:previousSender];// Select second-language on start up
+        NSLog(@"toggleLanguage %d",currentLanguage);
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@",exception);
+        NSLog(@"%@",[exception debugDescription]);
+    }
+}
+
+- (void)hotKeyPressed:(NSEvent*)hkEvent
+{
+    [self toggleLanguage];
 }
 
 @end

@@ -29,7 +29,7 @@
 - (IBAction)justQuit:(id)sender;
 - (IBAction)openAtLogin:(id)sender;
 - (IBAction)useDefaultStatusBarIcon:(id)sender;
-
+- (void)hotKeyPressed:(NSEvent*)hkEvent;
 @property (strong) IBOutlet NSMenu *dictationSwitcherMenu;
 
 @end

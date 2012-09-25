@@ -7,15 +7,34 @@
 //
 
 #import "DictationSwitcherAppDelegate.h"
-#import "DDHotKeyCenter.h"
+#import "MASShortcutView.h"
+#import "MASShortcutView+UserDefaults.h"
+#import "MASShortcut+UserDefaults.h"
+#import "MASShortcut+Monitoring.h"
 
-@implementation DictationSwitcherAppDelegate
+NSString *const kPreferenceKeyShortcut = @"hotKey";
+NSString *const kPreferenceKeyShortcutEnabled = @"hotKeyEnabled";
+
+@implementation DictationSwitcherAppDelegate {
+    __weak id _constantShortcutMonitor;
+}
+
+@synthesize shortcutView = _shortcutView;
 @synthesize dictationSwitcherMenu;
+
+- (void)awakeFromNib
+{
+    [self.shortcutView bind:@"enabled" toObject:self withKeyPath:@"shortcutEnabled" options:nil];
+}
+
+-(void)dealloc {
+    [self.shortcutView unbind:@"enabled"];
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Register standards for displayed languages in the menu (all of them!)
-    
+        
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                                                              [NSNumber numberWithBool:TRUE], @"en-AU",
                                                              [NSNumber numberWithBool:TRUE], @"en-GB",
@@ -23,7 +42,23 @@
                                                              [NSNumber numberWithBool:TRUE], @"fr-FR",
                                                              [NSNumber numberWithBool:TRUE], @"de-DE",
                                                              [NSNumber numberWithBool:TRUE], @"ja-JP",
-                                                             [NSNumber numberWithBool:TRUE], @"showIcon",
+                                                             [NSNumber numberWithBool:TRUE], @"zh-CN",
+                                                             [NSNumber numberWithBool:TRUE], @"zh-HK",
+                                                             [NSNumber numberWithBool:TRUE], @"zh-TW",
+                                                             [NSNumber numberWithBool:TRUE], @"en-CA",
+                                                             [NSNumber numberWithBool:TRUE], @"fr-CA",
+                                                             [NSNumber numberWithBool:TRUE], @"fr-CH",
+                                                             [NSNumber numberWithBool:TRUE], @"de-CH",
+                                                             [NSNumber numberWithBool:TRUE], @"it-IT",
+                                                             [NSNumber numberWithBool:TRUE], @"it-CH",
+                                                             [NSNumber numberWithBool:TRUE], @"ko-KR",
+                                                             [NSNumber numberWithBool:TRUE], @"es-MX",
+                                                             [NSNumber numberWithBool:TRUE], @"es-ES",
+                                                             [NSNumber numberWithBool:TRUE], @"es-US",
+                                                             [NSNumber numberWithBool:FALSE], @"hotKeyEnabled",
+                                                             [NSNumber numberWithBool:FALSE], @"showIcon",
+                                                             [NSNumber numberWithInt:9], @"hotKeyFirstLanguage",
+                                                             [NSNumber numberWithInt:10], @"hotKeySecondLanguage",
                                                              [NSNumber numberWithBool:FALSE], @"openAtLogin",
                                                              nil]];
     defaults = [[NSUserDefaults alloc] init];
@@ -74,7 +109,7 @@
         UInt32 seedValue;
         NSArray  *loginItemsArray = (__bridge NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
         for(int i = 0 ; i< [loginItemsArray count]; i++){
-            LSSharedFileListItemRef itemRef = (__bridge LSSharedFileListItemRef)[loginItemsArray
+            LSSharedFileListItemRef itemRef = (__bridge  LSSharedFileListItemRef)[loginItemsArray
                                                                                  objectAtIndex:i];
             
             if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &url, NULL) == noErr) {
@@ -88,32 +123,26 @@
             }
         }
     }
-
-    // Register hot key.
-    // Note: At the moment, this is hard-coded to the letter L with modifiers
-    // Command, and Control. 
-    DDHotKeyCenter *hotKeyCenter = [[DDHotKeyCenter alloc] init];
-    DDHotKeyTask task = ^(NSEvent *hkEvent) { [self hotKeyPressed:hkEvent]; };
-	int flags = (NSControlKeyMask | NSCommandKeyMask);//NSAlternateKeyMask | == Option
-    BOOL ok = [hotKeyCenter registerHotKeyWithKeyCode:37 modifierFlags:flags task:task];
-    if (!ok)
-        NSLog(@"%s  Failed to register hot key.", __PRETTY_FUNCTION__);
-
     
     // Grab the current dictation language settings:
     
     [self getCurrentLanguageSettings];
     //Set status bar icon according to settings
-    [self setStatusBarIcon];
+    [self setStatusBarIcon:nil];
+    
+    // Shortcut view will follow and modify user preferences automatically
+    self.shortcutView.associatedUserDefaultsKey = kPreferenceKeyShortcut;
+    
+    // Activate the global keyboard shortcut if it was enabled last time
+    [self resetShortcutRegistration];
 }
 
 -(void)getCurrentLanguageSettings {
     
     // Grab the dictation language settings in the propertly list file for the dictation preference pane:
-       
-
-    //[DictationIMLocaleIdentifier setString:[NSString stringWithFormat:@"%@", [defaults objectForKey:@"DictationIMLocaleIdentifier"]]];
+    
     DictationIMLocaleIdentifier = [[NSMutableString alloc] initWithFormat:@"%@", [defaults objectForKey:@"DictationIMLocaleIdentifier"]];
+    
     // Check the appropriate language:
     
         if ([DictationIMLocaleIdentifier isEqualToString:@"en-AU"]) {
@@ -140,13 +169,65 @@
             previousSender=[dictationSwitcherMenu itemWithTag:6];
             [[dictationSwitcherMenu itemWithTag:6] setState:NSOnState];
         }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"zh-CN"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:7];
+            [[dictationSwitcherMenu itemWithTag:7] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"zh-HK"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:8];
+            [[dictationSwitcherMenu itemWithTag:8] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"zh-TW"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:9];
+            [[dictationSwitcherMenu itemWithTag:9] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"en-CA"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:10];
+            [[dictationSwitcherMenu itemWithTag:10] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"fr-CA"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:11];
+            [[dictationSwitcherMenu itemWithTag:11] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"fr-CH"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:12];
+            [[dictationSwitcherMenu itemWithTag:12] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"de-CH"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:13];
+            [[dictationSwitcherMenu itemWithTag:13] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"it-IT"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:14];
+            [[dictationSwitcherMenu itemWithTag:14] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"it-CH"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:15];
+            [[dictationSwitcherMenu itemWithTag:15] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"ko-KR"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:16];
+            [[dictationSwitcherMenu itemWithTag:16] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"es-MX"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:17];
+            [[dictationSwitcherMenu itemWithTag:17] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"es-ES"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:18];
+            [[dictationSwitcherMenu itemWithTag:18] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"es-US"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:19];
+            [[dictationSwitcherMenu itemWithTag:19] setState:NSOnState];
+        }
 }
 
-- (void)setStatusBarIcon{
+- (IBAction)setStatusBarIcon:(id)sender {
     if (!dictationDisabled) {
-        if([defaults boolForKey:@"showIcon"]){
-            [dictationSwitcherItem setImage:[[NSBundle mainBundle] imageForResource:DictationIMLocaleIdentifier]];
-            [dictationSwitcherItem setAlternateImage:[[NSBundle mainBundle] imageForResource:DictationIMLocaleIdentifier]];
+        if ([defaults boolForKey:@"showIcon"]) {
+            [dictationSwitcherItem setImage:[[NSBundle mainBundle] imageForResource:[defaults objectForKey:@"DictationIMLocaleIdentifier"]]];
+            [dictationSwitcherItem setAlternateImage:[[NSBundle mainBundle] imageForResource:[defaults objectForKey:@"DictationIMLocaleIdentifier"]]];
         } else {
             [dictationSwitcherItem setImage:[[NSBundle mainBundle] imageForResource:@"statusicon"]];
             [dictationSwitcherItem setAlternateImage:[[NSBundle mainBundle] imageForResource:@"statusicon-alt"]];
@@ -158,14 +239,13 @@
 }
 
 -(IBAction)useDefaultStatusBarIcon:(id)sender{
-    [self setStatusBarIcon];
+    [self setStatusBarIcon:nil];
 }
 
 - (IBAction)switchLanguage:(id)sender {
     
     // Some language menu item was activated. Set the locale identifier accordingly:
-    previousLanguage=currentLanguage;
-    currentLanguage=(int)[sender tag];
+
     switch ([sender tag]) {
         case 1:
             [DictationIMLocaleIdentifier setString:@"en-AU"];
@@ -191,10 +271,61 @@
             [DictationIMLocaleIdentifier setString:@"ja-JP"];
             break;
             
+        case 7:
+            [DictationIMLocaleIdentifier setString:@"zh-CN"];
+            break;
+            
+        case 8:
+            [DictationIMLocaleIdentifier setString:@"zh-HK"];
+            break;
+            
+        case 9:
+            [DictationIMLocaleIdentifier setString:@"zh-TW"];
+            break;
+            
+        case 10:
+            [DictationIMLocaleIdentifier setString:@"en-CA"];
+            break;
+            
+        case 11:
+            [DictationIMLocaleIdentifier setString:@"fr-CA"];
+            break;
+            
+        case 12:
+            [DictationIMLocaleIdentifier setString:@"fr-CH"];
+            break;
+            
+        case 13:
+            [DictationIMLocaleIdentifier setString:@"de-CH"];
+            break;
+            
+        case 14:
+            [DictationIMLocaleIdentifier setString:@"it-IT"];
+            break;
+            
+        case 15:
+            [DictationIMLocaleIdentifier setString:@"it-CH"];
+            break;
+            
+        case 16:
+            [DictationIMLocaleIdentifier setString:@"ko-KR"];
+            break;
+            
+        case 17:
+            [DictationIMLocaleIdentifier setString:@"es-MX"];
+            break;
+            
+        case 18:
+            [DictationIMLocaleIdentifier setString:@"es-ES"];
+            break;
+        
+        case 19:
+            [DictationIMLocaleIdentifier setString:@"es-US"];
+            break;
+            
         default:
             break;
     }
-    [self setStatusBarIcon];
     
     // Deactivate the previous checkmark (if available) and set the checkmark:
     
@@ -229,6 +360,7 @@
         // Kill it with fire:
         [[NSTask launchedTaskWithLaunchPath:@"/bin/kill" arguments:[NSArray arrayWithObjects:@"-hup",[NSString stringWithFormat:@"%i",pid], nil]] waitUntilExit];
     }
+    [self setStatusBarIcon:nil];
 
 }
 
@@ -242,7 +374,7 @@
     
         [sender setTitle:NSLocalizedString(@"Turn dictation on", nil)];
 
-        [self setStatusBarIcon];
+        [self setStatusBarIcon:nil];
 
         [defaults setPersistentDomain:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:@"Dictation Enabled"]
                       forName:@"com.apple.assistant.support"];
@@ -251,7 +383,7 @@
 
         [sender setTitle:NSLocalizedString(@"Turn dictation off", nil)];
 
-        [self setStatusBarIcon];
+        [self setStatusBarIcon:nil];
 
         [defaults setPersistentDomain:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"Dictation Enabled"]
                           forName:@"com.apple.assistant.support"];
@@ -326,14 +458,15 @@
     }
 }
 
+# pragma mark Window stuff
 
 - (IBAction)gotToPreferences:(id)sender {
     [[NSWorkspace sharedWorkspace] openFile:@"/System/Library/PreferencePanes/Speech.prefPane"];
 }
 
 - (IBAction)openSettings:(id)sender {
-    [NSApp activateIgnoringOtherApps:YES];
-    [settingsWindow makeKeyAndOrderFront:nil];
+ [NSApp activateIgnoringOtherApps:YES];
+ [settingsWindow makeKeyAndOrderFront:nil];
 }
 
 - (IBAction)openAboutPanel:(id)sender {
@@ -356,27 +489,41 @@
 }
 
 
-int currentLanguage=3;
-int previousLanguage=5;
--(void)toggleLanguage{
-    @try {
-        [self getCurrentLanguageSettings];
-        previousLanguage=[previousSender tag];
-        currentLanguage=previousLanguage==3?5:3;// todo! preferences
-        NSControl* sender=[dictationSwitcherMenu itemWithTag:currentLanguage];
-        [self switchLanguage:sender];
-        //    [self switchLanguage:previousSender];// Select second-language on start up
-        NSLog(@"toggleLanguage %d",currentLanguage);
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@",exception);
-        NSLog(@"%@",[exception debugDescription]);
+# pragma mark Hotkey
+
+- (BOOL)isShortcutEnabled
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kPreferenceKeyShortcutEnabled];
+}
+
+- (void)setShortcutEnabled:(BOOL)enabled
+{
+    if (self.shortcutEnabled != enabled) {
+        [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:kPreferenceKeyShortcutEnabled];
+        [self resetShortcutRegistration];
     }
 }
 
-- (void)hotKeyPressed:(NSEvent*)hkEvent
+- (void)resetShortcutRegistration
 {
-    [self toggleLanguage];
+    if (self.shortcutEnabled) {
+        [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceKeyShortcut handler:^{
+            if ([defaults integerForKey:@"hotKeyPrevLang"]==[defaults integerForKey:@"hotKeyFirstLanguage"]) {
+                NSControl* sender=[dictationSwitcherMenu itemWithTag:[defaults integerForKey:@"hotKeySecondLanguage"]];
+                [self switchLanguage:sender];
+                [defaults setInteger:[defaults integerForKey:@"hotKeySecondLanguage"] forKey:@"hotKeyPrevLang"];
+            } else {
+                NSControl* sender=[dictationSwitcherMenu itemWithTag:[defaults integerForKey:@"hotKeyFirstLanguage"]];
+                [self switchLanguage:sender];
+                [defaults setInteger:[defaults integerForKey:@"hotKeyFirstLanguage"] forKey:@"hotKeyPrevLang"];
+            }
+        }];
+    }
+    else {
+        [MASShortcut unregisterGlobalShortcutWithUserDefaultsKey:kPreferenceKeyShortcut];
+    }
 }
+
+
 
 @end

@@ -1,17 +1,18 @@
 DictationSwitcher
 =================
 
-A OS X menu bar utility that lets the user quickly switch dictation languages or turn the service off. Requires OS X 10.8 (Mountain Lion).
+A OS X menu bar utility that lets the user quickly switch dictation languages or turn the service off. Requires OS X 10.8.2 (Mountain Lion).
+
+If you only want the utility (and not the source), you can always get the latest version here: [http://fouquet.me/apps/dictationswitcher/](http://fouquet.me/apps/dictationswitcher/). It's Developer ID signed for Gatekeeper.
 
 ![DictationSwitcher](http://fouquet.me/images/dictationswitcher/dictationswitcher.jpg)
+![DictationSwitcher Preferences](http://fouquet.me/images/dictationswitcher/dictationswitcher_prefs.jpg)
 
 #Features
 
 * Quick language switching: quickly switch between dictation languages without opening System Preferences
-
+* Use a global hot key (you can define your own) to quickly switch between two languages
 * Turn Dictation on/off: deactivate Dictation when it's not needed, and activate it with one click.
-
-If you only want the utility, you can always get the latest version here: [http://fouquet.me/apps/dictationswitcher/](http://fouquet.me/apps/dictationswitcher/).
 
 # License
 

@@ -7,6 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MASShortcutView.h"
+
+@class PTHotKey;
 
 @interface DictationSwitcherAppDelegate : NSObject <NSApplicationDelegate> {
     IBOutlet NSMenu *dictationSwitcherMenu;
@@ -29,7 +32,10 @@
 - (IBAction)justQuit:(id)sender;
 - (IBAction)openAtLogin:(id)sender;
 - (IBAction)useDefaultStatusBarIcon:(id)sender;
-- (void)hotKeyPressed:(NSEvent*)hkEvent;
+
 @property (strong) IBOutlet NSMenu *dictationSwitcherMenu;
+@property (strong) NSWindowController *preferencesWindow;
+@property (nonatomic, weak) IBOutlet MASShortcutView *shortcutView;
+@property (nonatomic, getter = isShortcutEnabled) BOOL shortcutEnabled;
 
 @end

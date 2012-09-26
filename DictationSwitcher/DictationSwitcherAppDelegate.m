@@ -57,8 +57,8 @@ NSString *const kPreferenceKeyShortcutEnabled = @"hotKeyEnabled";
                                                              [NSNumber numberWithBool:TRUE], @"es-US",
                                                              [NSNumber numberWithBool:FALSE], @"hotKeyEnabled",
                                                              [NSNumber numberWithBool:FALSE], @"showIcon",
-                                                             [NSNumber numberWithInt:9], @"hotKeyFirstLanguage",
-                                                             [NSNumber numberWithInt:10], @"hotKeySecondLanguage",
+                                                             [NSNumber numberWithInt:1], @"hotKeyFirstLanguage",
+                                                             [NSNumber numberWithInt:2], @"hotKeySecondLanguage",
                                                              [NSNumber numberWithBool:FALSE], @"openAtLogin",
                                                              nil]];
     defaults = [[NSUserDefaults alloc] init];
@@ -146,64 +146,64 @@ NSString *const kPreferenceKeyShortcutEnabled = @"hotKeyEnabled";
     // Check the appropriate language:
     
         if ([DictationIMLocaleIdentifier isEqualToString:@"en-AU"]) {
-            previousSender=[dictationSwitcherMenu itemWithTag:1];
-            [[dictationSwitcherMenu itemWithTag:1] setState:NSOnState];
-        }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"en-GB"]) {
-            previousSender=[dictationSwitcherMenu itemWithTag:2];
-            [[dictationSwitcherMenu itemWithTag:2] setState:NSOnState];
-        }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"en-US"]) {
-            previousSender=[dictationSwitcherMenu itemWithTag:3];
-            [[dictationSwitcherMenu itemWithTag:3] setState:NSOnState];
-        }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"fr-FR"]) {
             previousSender=[dictationSwitcherMenu itemWithTag:4];
             [[dictationSwitcherMenu itemWithTag:4] setState:NSOnState];
         }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"de-DE"]) {
-            previousSender=[dictationSwitcherMenu itemWithTag:5];
-            [[dictationSwitcherMenu itemWithTag:5] setState:NSOnState];
-        }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"ja-JP"]) {
+        if ([DictationIMLocaleIdentifier isEqualToString:@"en-GB"]) {
             previousSender=[dictationSwitcherMenu itemWithTag:6];
             [[dictationSwitcherMenu itemWithTag:6] setState:NSOnState];
         }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"zh-CN"]) {
+        if ([DictationIMLocaleIdentifier isEqualToString:@"en-US"]) {
             previousSender=[dictationSwitcherMenu itemWithTag:7];
             [[dictationSwitcherMenu itemWithTag:7] setState:NSOnState];
         }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"zh-HK"]) {
-            previousSender=[dictationSwitcherMenu itemWithTag:8];
-            [[dictationSwitcherMenu itemWithTag:8] setState:NSOnState];
-        }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"zh-TW"]) {
+        if ([DictationIMLocaleIdentifier isEqualToString:@"fr-FR"]) {
             previousSender=[dictationSwitcherMenu itemWithTag:9];
             [[dictationSwitcherMenu itemWithTag:9] setState:NSOnState];
         }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"en-CA"]) {
-            previousSender=[dictationSwitcherMenu itemWithTag:10];
-            [[dictationSwitcherMenu itemWithTag:10] setState:NSOnState];
-        }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"fr-CA"]) {
+        if ([DictationIMLocaleIdentifier isEqualToString:@"de-DE"]) {
             previousSender=[dictationSwitcherMenu itemWithTag:11];
             [[dictationSwitcherMenu itemWithTag:11] setState:NSOnState];
         }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"ja-JP"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:15];
+            [[dictationSwitcherMenu itemWithTag:15] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"zh-CN"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:1];
+            [[dictationSwitcherMenu itemWithTag:1] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"zh-HK"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:2];
+            [[dictationSwitcherMenu itemWithTag:2] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"zh-TW"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:3];
+            [[dictationSwitcherMenu itemWithTag:3] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"en-CA"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:5];
+            [[dictationSwitcherMenu itemWithTag:5] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"fr-CA"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:8];
+            [[dictationSwitcherMenu itemWithTag:8] setState:NSOnState];
+        }
         if ([DictationIMLocaleIdentifier isEqualToString:@"fr-CH"]) {
+            previousSender=[dictationSwitcherMenu itemWithTag:10];
+            [[dictationSwitcherMenu itemWithTag:10] setState:NSOnState];
+        }
+        if ([DictationIMLocaleIdentifier isEqualToString:@"de-CH"]) {
             previousSender=[dictationSwitcherMenu itemWithTag:12];
             [[dictationSwitcherMenu itemWithTag:12] setState:NSOnState];
         }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"de-CH"]) {
+        if ([DictationIMLocaleIdentifier isEqualToString:@"it-IT"]) {
             previousSender=[dictationSwitcherMenu itemWithTag:13];
             [[dictationSwitcherMenu itemWithTag:13] setState:NSOnState];
         }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"it-IT"]) {
+        if ([DictationIMLocaleIdentifier isEqualToString:@"it-CH"]) {
             previousSender=[dictationSwitcherMenu itemWithTag:14];
             [[dictationSwitcherMenu itemWithTag:14] setState:NSOnState];
-        }
-        if ([DictationIMLocaleIdentifier isEqualToString:@"it-CH"]) {
-            previousSender=[dictationSwitcherMenu itemWithTag:15];
-            [[dictationSwitcherMenu itemWithTag:15] setState:NSOnState];
         }
         if ([DictationIMLocaleIdentifier isEqualToString:@"ko-KR"]) {
             previousSender=[dictationSwitcherMenu itemWithTag:16];
@@ -238,7 +238,7 @@ NSString *const kPreferenceKeyShortcutEnabled = @"hotKeyEnabled";
     }
 }
 
--(IBAction)useDefaultStatusBarIcon:(id)sender{
+- (IBAction)useDefaultStatusBarIcon:(id)sender{
     [self setStatusBarIcon:nil];
 }
 
@@ -247,63 +247,63 @@ NSString *const kPreferenceKeyShortcutEnabled = @"hotKeyEnabled";
     // Some language menu item was activated. Set the locale identifier accordingly:
 
     switch ([sender tag]) {
-        case 1:
+        case 4:
             [DictationIMLocaleIdentifier setString:@"en-AU"];
             break;
             
-        case 2:
+        case 6:
             [DictationIMLocaleIdentifier setString:@"en-GB"];
             break;
             
-        case 3:
+        case 7:
             [DictationIMLocaleIdentifier setString:@"en-US"];
             break;
             
-        case 4:
+        case 9:
             [DictationIMLocaleIdentifier setString:@"fr-FR"];
             break;
             
-        case 5:
+        case 11:
             [DictationIMLocaleIdentifier setString:@"de-DE"];
             break;
             
-        case 6:
+        case 15:
             [DictationIMLocaleIdentifier setString:@"ja-JP"];
             break;
             
-        case 7:
+        case 1:
             [DictationIMLocaleIdentifier setString:@"zh-CN"];
             break;
             
-        case 8:
+        case 2:
             [DictationIMLocaleIdentifier setString:@"zh-HK"];
             break;
             
-        case 9:
+        case 3:
             [DictationIMLocaleIdentifier setString:@"zh-TW"];
             break;
             
-        case 10:
+        case 5:
             [DictationIMLocaleIdentifier setString:@"en-CA"];
             break;
             
-        case 11:
+        case 8:
             [DictationIMLocaleIdentifier setString:@"fr-CA"];
             break;
             
-        case 12:
+        case 10:
             [DictationIMLocaleIdentifier setString:@"fr-CH"];
             break;
             
-        case 13:
+        case 12:
             [DictationIMLocaleIdentifier setString:@"de-CH"];
             break;
             
-        case 14:
+        case 13:
             [DictationIMLocaleIdentifier setString:@"it-IT"];
             break;
             
-        case 15:
+        case 14:
             [DictationIMLocaleIdentifier setString:@"it-CH"];
             break;
             
@@ -488,34 +488,139 @@ NSString *const kPreferenceKeyShortcutEnabled = @"hotKeyEnabled";
     [NSApp terminate:nil];
 }
 
+# pragma mark Useful methods
+
+-(int)returnCountryIdentifier:(NSString*)countryCode {
+    
+    int identifier;
+    
+    if ([countryCode isEqualTo:@"en-AU"]) identifier = 4;
+    if ([countryCode isEqualTo:@"en-GB"]) identifier = 6;
+    if ([countryCode isEqualTo:@"en-US"]) identifier = 7;
+    if ([countryCode isEqualTo:@"fr-FR"]) identifier = 9;
+    if ([countryCode isEqualTo:@"de-DE"]) identifier = 11;
+    if ([countryCode isEqualTo:@"ja-JP"]) identifier = 15;
+    if ([countryCode isEqualTo:@"zh-CN"]) identifier = 1;
+    if ([countryCode isEqualTo:@"zh-HK"]) identifier = 2;
+    if ([countryCode isEqualTo:@"zh-TW"]) identifier = 3;
+    if ([countryCode isEqualTo:@"en-CA"]) identifier = 5;
+    if ([countryCode isEqualTo:@"fr-CA"]) identifier = 8;
+    if ([countryCode isEqualTo:@"fr-CH"]) identifier = 10;
+    if ([countryCode isEqualTo:@"de-CH"]) identifier = 12;
+    if ([countryCode isEqualTo:@"it-IT"]) identifier = 13;
+    if ([countryCode isEqualTo:@"it-CH"]) identifier = 14;
+    if ([countryCode isEqualTo:@"ko-KR"]) identifier = 16;
+    if ([countryCode isEqualTo:@"es-MX"]) identifier = 17;
+    if ([countryCode isEqualTo:@"es-ES"]) identifier = 18;
+    if ([countryCode isEqualTo:@"es-US"]) identifier = 19;
+
+    return identifier;
+}
+
+-(NSString*)returnCountryCode:(int)identifier {
+    
+    NSString *countryCode;
+    
+    switch (identifier) {
+        case 4:
+            countryCode=@"en-AU";
+            break;
+        case 6:
+            countryCode=@"en-GB";
+            break;
+        case 7:
+            countryCode=@"en-US";
+            break;
+        case 9:
+            countryCode=@"fr-FR";
+            break;
+        case 11:
+            countryCode=@"de-DE";
+            break;
+        case 15:
+            countryCode=@"ja-JP";
+            break;
+        case 1:
+            countryCode=@"zh-CN";
+            break;
+        case 2:
+            countryCode=@"zh-HK";
+            break;
+        case 3:
+            countryCode=@"zh-TW";
+            break;
+        case 5:
+            countryCode=@"en-CA";
+            break;
+        case 8:
+            countryCode=@"fr-CA";
+            break;
+        case 10:
+            countryCode=@"fr-CH";
+            break;
+        case 12:
+            countryCode=@"de-CH";
+            break;
+        case 13:
+            countryCode=@"it-IT";
+            break;
+        case 14:
+            countryCode=@"it-CH";
+            break;
+        case 16:
+            countryCode=@"ko-KR";
+            break;
+        case 17:
+            countryCode=@"es-MX";
+            break;
+        case 18:
+            countryCode=@"es-ES";
+            break;
+        case 19:
+            countryCode=@"es-US";
+            break;
+    }
+
+    return countryCode;
+}
+
 
 # pragma mark Hotkey
 
-- (BOOL)isShortcutEnabled
-{
+- (BOOL)isShortcutEnabled {
     return [[NSUserDefaults standardUserDefaults] boolForKey:kPreferenceKeyShortcutEnabled];
 }
 
-- (void)setShortcutEnabled:(BOOL)enabled
-{
+- (void)setShortcutEnabled:(BOOL)enabled {
     if (self.shortcutEnabled != enabled) {
         [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:kPreferenceKeyShortcutEnabled];
         [self resetShortcutRegistration];
     }
 }
 
-- (void)resetShortcutRegistration
-{
+- (void)resetShortcutRegistration {
     if (self.shortcutEnabled) {
         [MASShortcut registerGlobalShortcutWithUserDefaultsKey:kPreferenceKeyShortcut handler:^{
-            if ([defaults integerForKey:@"hotKeyPrevLang"]==[defaults integerForKey:@"hotKeyFirstLanguage"]) {
-                NSControl* sender=[dictationSwitcherMenu itemWithTag:[defaults integerForKey:@"hotKeySecondLanguage"]];
-                [self switchLanguage:sender];
-                [defaults setInteger:[defaults integerForKey:@"hotKeySecondLanguage"] forKey:@"hotKeyPrevLang"];
-            } else {
-                NSControl* sender=[dictationSwitcherMenu itemWithTag:[defaults integerForKey:@"hotKeyFirstLanguage"]];
-                [self switchLanguage:sender];
-                [defaults setInteger:[defaults integerForKey:@"hotKeyFirstLanguage"] forKey:@"hotKeyPrevLang"];
+            if ([defaults integerForKey:@"hotKeyMode"]==0) { // All languages
+                NSString *currentLanguage=[defaults objectForKey:@"DictationIMLocaleIdentifier"];
+                    for (int i=[self returnCountryIdentifier:currentLanguage];i<20;i++) {
+                        if (i==19) i=0;
+                        if ([defaults boolForKey:[self returnCountryCode:i+1]]) {
+                            NSControl *sender=[dictationSwitcherMenu itemWithTag:i+1];
+                            [self switchLanguage:sender];
+                            return;
+                        }
+                    }
+            } else { // Two predefined languages
+                if ([defaults integerForKey:@"hotKeyPrevLang"]==[defaults integerForKey:@"hotKeyFirstLanguage"]) {
+                    NSControl *sender=[dictationSwitcherMenu itemWithTag:[defaults integerForKey:@"hotKeySecondLanguage"]];
+                    [self switchLanguage:sender];
+                    [defaults setInteger:[defaults integerForKey:@"hotKeySecondLanguage"] forKey:@"hotKeyPrevLang"];
+                } else {
+                    NSControl *sender=[dictationSwitcherMenu itemWithTag:[defaults integerForKey:@"hotKeyFirstLanguage"]];
+                    [self switchLanguage:sender];
+                    [defaults setInteger:[defaults integerForKey:@"hotKeyFirstLanguage"] forKey:@"hotKeyPrevLang"];
+                }
             }
         }];
     }
